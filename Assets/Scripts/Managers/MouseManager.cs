@@ -47,7 +47,6 @@ public class MouseManager : MonoBehaviour {
         if (Physics.Raycast(ray, out hitInfo))
         {
             GameObject ourHitObject = hitInfo.collider.transform.parent.gameObject;
-            Debug.Log("Raycast Hit: " + ourHitObject.name);
 
             // Check if we are over a Hex
             if (ourHitObject.GetComponent<HexTile>() != null)

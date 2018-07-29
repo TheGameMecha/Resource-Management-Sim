@@ -188,7 +188,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 31267859}
   m_LocalRotation: {x: 0.5559888, y: -0, z: -0, w: 0.8311898}
-  m_LocalPosition: {x: 3.58, y: 5.22, z: 0.61}
+  m_LocalPosition: {x: 3.58, y: 9.49, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -343,6 +343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237789452b99bd343b125b557025ca65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  currentCredits: 1000
+  currentMetal: 500
+  premiumGems: 0
+  power: 100
+  fuel: 100
 --- !u!4 &365618065
 Transform:
   m_ObjectHideFlags: 0
