@@ -63,8 +63,15 @@ public class MouseManager : MonoBehaviour {
     public void MouseOverHex(GameObject ourHitObject)
     {
         // Functionality for Tile commands
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
+        if (Input.GetMouseButtonDown(0)  ) // Left mouse button
         {
+            if (MenuManager.Instance.isActive == true)
+            {
+                MenuManager.Instance.menuPanel.gameObject.SetActive(false);
+                MenuManager.Instance.isActive = false;
+                return;
+            }
+
             // We have clicked on a hex, so do something
             MenuManager.Instance.SetCurrentHex(ourHitObject.GetComponent<HexTile>());
             MenuManager.Instance.menuPanel.gameObject.SetActive(true);
@@ -73,6 +80,7 @@ public class MouseManager : MonoBehaviour {
             Vector3 menuWorldPosition;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(MenuManager.Instance.menuPanel, mousePosition, Camera.main, out menuWorldPosition);
             MenuManager.Instance.menuPanel.position = menuWorldPosition;
+            MenuManager.Instance.isActive = true;
         }
     }
 

@@ -53,6 +53,7 @@ public class BuildManager : MonoBehaviour {
 
                 // Hide the menus
                 MenuManager.Instance.menuPanel.gameObject.SetActive(false);
+                MenuManager.Instance.isActive = false;
                 menuPanel.gameObject.SetActive(false);
             }
 

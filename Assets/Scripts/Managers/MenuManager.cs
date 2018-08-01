@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour {
     [HideInInspector]
     public HexTile currentHex;
 
+    [HideInInspector]
+    public bool isActive = false;
+
     // Called on object creation
     void Awake()
     {
