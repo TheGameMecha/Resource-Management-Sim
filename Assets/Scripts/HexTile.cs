@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class HexTile : MonoBehaviour {
-
+public class HexTile : MonoBehaviour
+{
     // Coords in the map array
     public int xPos;
     public int yPos;
@@ -13,6 +13,8 @@ public class HexTile : MonoBehaviour {
     public bool isEmpty = true;
 
     public List<HexTile> neighbors;
+
+    public int currentBuilding = -1;
 
     public void GetNeighbors()
     {
@@ -29,10 +31,9 @@ public class HexTile : MonoBehaviour {
 
     public void EvenNeighbors()
     {
-
         if (xPos - 1 >= 0 && yPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos - 1, yPos - 1].isEmpty && Map.Instance.allTiles[xPos - 1, yPos - 1] != null)
+            if (Map.Instance.allTiles[xPos - 1, yPos - 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos - 1, yPos - 1]);
             }
@@ -40,7 +41,7 @@ public class HexTile : MonoBehaviour {
 
         if (yPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos, yPos - 1].isEmpty && Map.Instance.allTiles[xPos, yPos - 1] != null)
+            if (Map.Instance.allTiles[xPos, yPos - 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos, yPos - 1]);
             }
@@ -48,7 +49,7 @@ public class HexTile : MonoBehaviour {
 
         if (xPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos - 1, yPos].isEmpty && Map.Instance.allTiles[xPos - 1, yPos] != null)
+            if (Map.Instance.allTiles[xPos - 1, yPos] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos - 1, yPos]);
             }
@@ -56,7 +57,7 @@ public class HexTile : MonoBehaviour {
 
         if (xPos + 1 < Map.Instance.allTiles.GetLength(0))
         {
-            if (Map.Instance.allTiles[xPos + 1, yPos].isEmpty && Map.Instance.allTiles[xPos + 1, yPos] != null)
+            if (Map.Instance.allTiles[xPos + 1, yPos] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos + 1, yPos]);
             }
@@ -64,7 +65,7 @@ public class HexTile : MonoBehaviour {
 
         if (xPos - 1 >= 0 && yPos + 1 < Map.Instance.allTiles.GetLength(1))
         {
-            if (Map.Instance.allTiles[xPos - 1, yPos + 1].isEmpty && Map.Instance.allTiles[xPos - 1, yPos + 1] != null)
+            if (Map.Instance.allTiles[xPos - 1, yPos + 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos - 1, yPos + 1]);
             }
@@ -72,7 +73,7 @@ public class HexTile : MonoBehaviour {
 
         if (yPos + 1 < Map.Instance.allTiles.GetLength(1))
         {
-            if (Map.Instance.allTiles[xPos, yPos + 1].isEmpty && Map.Instance.allTiles[xPos, yPos + 1] != null)
+            if (Map.Instance.allTiles[xPos, yPos + 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos, yPos + 1]);
             }
@@ -81,10 +82,9 @@ public class HexTile : MonoBehaviour {
 
     public void OddNeighbors()
     {
-
         if (yPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos, yPos - 1].isEmpty && Map.Instance.allTiles[xPos, yPos - 1] != null)
+            if (Map.Instance.allTiles[xPos, yPos - 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos, yPos - 1]);
             }
@@ -92,7 +92,7 @@ public class HexTile : MonoBehaviour {
 
         if (xPos + 1 < Map.Instance.allTiles.GetLength(0) && yPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos + 1, yPos - 1].isEmpty && Map.Instance.allTiles[xPos + 1, yPos - 1] != null)
+            if (Map.Instance.allTiles[xPos + 1, yPos - 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos + 1, yPos - 1]);
             }
@@ -101,7 +101,7 @@ public class HexTile : MonoBehaviour {
         // Checks 1 to the left
         if (xPos - 1 >= 0)
         {
-            if (Map.Instance.allTiles[xPos - 1, yPos].isEmpty && Map.Instance.allTiles[xPos - 1, yPos] != null)
+            if (Map.Instance.allTiles[xPos - 1, yPos] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos - 1, yPos]);
             }
@@ -110,7 +110,7 @@ public class HexTile : MonoBehaviour {
         // Grabs 1 to the left
         if (xPos + 1 < Map.Instance.allTiles.GetLength(0))
         {
-            if (Map.Instance.allTiles[xPos + 1, yPos].isEmpty && Map.Instance.allTiles[xPos + 1, yPos] != null)
+            if (Map.Instance.allTiles[xPos + 1, yPos] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos + 1, yPos]);
             }
@@ -119,7 +119,7 @@ public class HexTile : MonoBehaviour {
         // Checks 1 above
         if (yPos + 1 < Map.Instance.allTiles.GetLength(1))
         {
-            if (Map.Instance.allTiles[xPos, yPos + 1].isEmpty && Map.Instance.allTiles[xPos, yPos + 1] != null)
+            if (Map.Instance.allTiles[xPos, yPos + 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos, yPos + 1]);
             }
@@ -127,12 +127,10 @@ public class HexTile : MonoBehaviour {
 
         if (xPos + 1 < Map.Instance.allTiles.GetLength(0) && yPos + 1 < Map.Instance.allTiles.GetLength(1))
         {
-            if (Map.Instance.allTiles[xPos + 1, yPos + 1].isEmpty && Map.Instance.allTiles[xPos + 1, yPos + 1] != null)
+            if (Map.Instance.allTiles[xPos + 1, yPos + 1] != null)
             {
                 neighbors.Add(Map.Instance.allTiles[xPos + 1, yPos + 1]);
             }
         }
     }
-
-
 }

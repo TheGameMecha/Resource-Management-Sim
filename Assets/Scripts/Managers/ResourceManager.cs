@@ -10,10 +10,19 @@ public class ResourceManager : MonoBehaviour {
 
     [Header("Resources")]
     public int currentCredits = 1000;
+    public int maxCredits;
+
     public int currentMetal = 500;
-    public int premiumGems = 0;
-    public int power = 100;
-    public int fuel = 100;
+    public int maxMetal;
+
+    public int currentGems = 0;
+    public int maxGems = 999;
+
+    public int currentPower = 100;
+    public int maxPower;
+
+    public int currentFuel = 100;
+    public int maxFuel;
 
     // Called on object creation
     void Awake()

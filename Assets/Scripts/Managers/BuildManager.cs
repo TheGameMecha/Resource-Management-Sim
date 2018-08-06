@@ -42,20 +42,40 @@ public class BuildManager : MonoBehaviour {
     {
         if (MenuManager.Instance.currentHex.isEmpty)
         {
-            if (ResourceManager.Instance.currentCredits >= buildings[0].creditsCost)
+            bool allowBuild = false;
+            foreach (HexTile hex in MenuManager.Instance.currentHex.neighbors)
             {
-                // Update managers
-                MenuManager.Instance.currentHex.isEmpty = false;
-                ResourceManager.Instance.currentCredits -= buildings[buildIndex].creditsCost;
-
-                // Spawn the building in
-                Instantiate(buildings[buildIndex], MenuManager.Instance.currentHex.transform.position, Quaternion.identity, MenuManager.Instance.currentHex.transform);
-                CloseMenu();
+                if (hex.isEmpty == false)
+                {
+                    allowBuild = true;
+                }
             }
-            else if (ResourceManager.Instance.currentCredits < buildings[buildIndex].creditsCost)
+            if (allowBuild == false)
             {
+                // Throw error message
                 GameObject go = Instantiate(MenuManager.Instance.messageTemplate.gameObject);
-                go.GetComponent<Message>().CreateMessage(MessageType.Error, "Not enough Credits");
+                go.GetComponent<Message>().CreateMessage(MessageType.Error, "Must build on an adjacent tile");
+            }
+            else
+            {
+                if (ResourceManager.Instance.currentCredits >= buildings[0].creditsCost)
+                {
+                    // Update managers
+                    MenuManager.Instance.currentHex.isEmpty = false;
+                    ResourceManager.Instance.currentCredits -= buildings[buildIndex].creditsCost;
+
+                    MenuManager.Instance.currentHex.currentBuilding = buildIndex;
+
+                    // Spawn the building in
+                    Instantiate(buildings[buildIndex], MenuManager.Instance.currentHex.transform.position, Quaternion.identity, MenuManager.Instance.currentHex.transform);
+                    CloseMenu();
+                }
+                else if (ResourceManager.Instance.currentCredits < buildings[buildIndex].creditsCost)
+                {
+                    // Throw error message
+                    GameObject go = Instantiate(MenuManager.Instance.messageTemplate.gameObject);
+                    go.GetComponent<Message>().CreateMessage(MessageType.Error, "Not enough Credits");
+                }
             }
         }
     }

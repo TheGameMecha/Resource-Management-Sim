@@ -55,6 +55,8 @@ public class Map : MonoBehaviour {
     void Start ()
     {
         CreateGrid();
+        PlaceCommandCenter();
+        SaveManager.Instance.LoadGame();
 	}
 
     // Public method for generating a grid
@@ -82,6 +84,9 @@ public class Map : MonoBehaviour {
                 // Make sure the object knows it is empty
                 hex_go.GetComponent<HexTile>().isEmpty = true;
 
+                // Sets the object's current building to be out of the index array
+                hex_go.GetComponent<HexTile>().currentBuilding = -1;
+
                 // Set the object to be parented to the map GameObject. Just for a cleaner hierarchy
                 hex_go.transform.SetParent(this.transform);
 
@@ -100,5 +105,23 @@ public class Map : MonoBehaviour {
                 allTiles[x,y].GetNeighbors();
             }
         }
+    }
+
+    public void PlaceCommandCenter()
+    {
+        // Spawn the command center (which is index 1 in the array) at the tile in the middle of the grid
+        // The middile of the grid is width/2 - 1, height/2 - 1
+        allTiles[(width / 2) - 1, (height / 2) - 1].isEmpty = false;
+        Instantiate(BuildManager.Instance.buildings[1], allTiles[(width / 2) - 1, (height / 2) - 1].transform.position, Quaternion.identity, allTiles[(width / 2) - 1, (height / 2) - 1].transform);
+    }
+
+    public int GetWidth()
+    {
+        return width;    
+    }
+
+    public int GetHeight()
+    {
+        return height;
     }
 }
