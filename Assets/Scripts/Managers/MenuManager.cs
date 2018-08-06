@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour {
     [HideInInspector]
     public bool isActive = false;
 
+    public Message messageTemplate;
+
     // Called on object creation
     void Awake()
     {

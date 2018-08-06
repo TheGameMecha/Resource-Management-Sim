@@ -38,7 +38,7 @@ public class BuildManager : MonoBehaviour {
     }
 
     // TODO: Make this method recieve a int variables to represent the desired building index
-    public void BuildBuilding()
+    public void BuildBuilding(int buildIndex)
     {
         if (MenuManager.Instance.currentHex.isEmpty)
         {
@@ -46,17 +46,25 @@ public class BuildManager : MonoBehaviour {
             {
                 // Update managers
                 MenuManager.Instance.currentHex.isEmpty = false;
-                ResourceManager.Instance.currentCredits -= buildings[0].creditsCost;
+                ResourceManager.Instance.currentCredits -= buildings[buildIndex].creditsCost;
 
                 // Spawn the building in
-                Instantiate(buildings[0], MenuManager.Instance.currentHex.transform.position, Quaternion.identity, MenuManager.Instance.currentHex.transform);
-
-                // Hide the menus
-                MenuManager.Instance.menuPanel.gameObject.SetActive(false);
-                MenuManager.Instance.isActive = false;
-                menuPanel.gameObject.SetActive(false);
+                Instantiate(buildings[buildIndex], MenuManager.Instance.currentHex.transform.position, Quaternion.identity, MenuManager.Instance.currentHex.transform);
+                CloseMenu();
             }
-
+            else if (ResourceManager.Instance.currentCredits < buildings[buildIndex].creditsCost)
+            {
+                GameObject go = Instantiate(MenuManager.Instance.messageTemplate.gameObject);
+                go.GetComponent<Message>().CreateMessage(MessageType.Error, "Not enough Credits");
+            }
         }
+    }
+
+    public void CloseMenu()
+    {
+        // Hide the menus
+        MenuManager.Instance.menuPanel.gameObject.SetActive(false);
+        MenuManager.Instance.isActive = false;
+        menuPanel.gameObject.SetActive(false);
     }
 }

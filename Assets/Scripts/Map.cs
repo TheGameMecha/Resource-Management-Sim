@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 // Script for generating a Hex based grid
 public class Map : MonoBehaviour {
@@ -18,8 +19,40 @@ public class Map : MonoBehaviour {
     float xOffset = 0.882f;
     float zOffset = 0.764f;
 
-	// Use this for initialization
-	void Start ()
+
+    public static Map Instance { get; private set; }
+    [SerializeField]
+    private bool dontDestroyOnLoad = true;
+
+    [HideInInspector]
+    public HexTile[,] allTiles;
+
+    // Called on object creation
+    void Awake()
+    {
+        // Singleton pattern
+        // Makes sure there is only ever one GameManager object
+        // Since we store data in this, we need to make sure it is used in the preload scene ONLY
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.Log("Warning: multiple " + this + " in scene!");
+            Destroy(gameObject);
+        }
+
+        if (dontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject); // Keep the only manager alive across scenes
+        }
+
+         allTiles = new HexTile[width, height];
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         CreateGrid();
 	}
@@ -55,6 +88,16 @@ public class Map : MonoBehaviour {
                 // Set the object to be static for performance reasons
                 hex_go.isStatic = true;
 
+                allTiles[x, y] = hex_go.GetComponent<HexTile>();
+                
+            }
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                allTiles[x,y].GetNeighbors();
             }
         }
     }
