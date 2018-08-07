@@ -61,7 +61,6 @@ public class SaveManager : MonoBehaviour {
         {
             for (int y = 0; y < Map.Instance.GetHeight(); y++)
             {
-                Debug.Log(SaveData.current.ToString());
                 // Update the internal grid based on save data
                 Map.Instance.allTiles[x, y].xPos = SaveData.current.grid.hexGrid[x, y].xPos;
                 Map.Instance.allTiles[x, y].yPos = SaveData.current.grid.hexGrid[x, y].yPos;
@@ -78,6 +77,7 @@ public class SaveManager : MonoBehaviour {
         }
 
         // Load Resources and assign them to the ResourceManager
+        Debug.Log(ResourceManager.Instance.ToString());
         ResourceManager.Instance.currentCredits = SaveData.current.resources.currentCredits;
         ResourceManager.Instance.maxCredits = SaveData.current.resources.maxCredits;
 
