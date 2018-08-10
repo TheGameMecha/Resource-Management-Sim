@@ -6,19 +6,19 @@ public enum MessageType { Error, Warning, Message };
 
 public class Message : MonoBehaviour {
 
-    [Header("UI Elements")]
-    [SerializeField]
-    private Text messageText;
-    [SerializeField]
-    private Image panel;
-
     [Header("Colours")]
     [SerializeField]
-    private Color errorColor;
+    public Color errorColor;
     [SerializeField]
-    private Color warningColor;
+    public Color warningColor;
     [SerializeField]
-    private Color otherColor;
+    public Color otherColor;
+
+    [Header("UI Elements")]
+    [SerializeField]
+    public Text messageText;
+    [SerializeField]
+    public Image panel;
 
     void Awake()
     {
@@ -29,7 +29,7 @@ public class Message : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-    public void CreateMessage(MessageType type, string message)
+    public virtual void CreateMessage(MessageType type, string message)
     {
         messageText.text = message;
 

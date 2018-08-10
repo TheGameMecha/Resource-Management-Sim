@@ -17,4 +17,18 @@ public class MenuItems
         File.Delete(Application.persistentDataPath + "/savedGames.gd");
         Debug.Log("Save Data cleared!");
     }
+
+    [MenuItem("Tools/Start Tutorial")]
+    private static void StartTutorial()
+    {
+        if (EditorApplication.isPlaying)
+        {
+            TutorialManager.Instance.PlayTutorial();
+            Debug.Log("Starting Tutorial....");
+        }
+        else
+        {
+            Debug.LogWarning("Cannot play Tutorial - Unity is not in Play Mode");
+        }
+    }
 }
