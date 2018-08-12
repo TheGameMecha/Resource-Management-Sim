@@ -19,3 +19,9 @@ MonoBehaviour:
   - speakerName: Harley
     speakerPortrait: {fileID: 21300000, guid: c1b9812a5b6f5ca4284401126aad54ee, type: 3}
     message: I'm also here
+  - speakerName: Emily
+    speakerPortrait: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+    message: Sup Bitch
+  - speakerName: Ben
+    speakerPortrait: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    message: Im just like here

@@ -78,6 +78,8 @@ public class BuildManager : MonoBehaviour {
                 }
             }
         }
+
+        ResourceCanvas.Instance.UpdateUI();
     }
 
     public void CloseMenu()
