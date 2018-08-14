@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraHandler : MonoBehaviour {
 
@@ -99,11 +100,13 @@ public class CameraHandler : MonoBehaviour {
         // Otherwise, if the mouse is still down, pan the camera
         if (Input.GetMouseButtonDown(0))
         {
-            lastPanPosition = Input.mousePosition;
+            if (!EventSystem.current.IsPointerOverGameObject())
+                lastPanPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButton(0))
         {
-            PanCamera(Input.mousePosition);
+            if (!EventSystem.current.IsPointerOverGameObject())
+                PanCamera(Input.mousePosition);
         }
 
         // Check for scrolling to zoom the camera
